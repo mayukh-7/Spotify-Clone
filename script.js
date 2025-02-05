@@ -133,7 +133,7 @@ async function main() {
     })
 
     // Add an event listener to hamburger
-    document.querySelector(".hamburger").addEventListener("click", () =>{
+    document.querySelector(".hamburgerContainer").addEventListener("click", () =>{
         document.querySelector(".left").style.left = "0"
     })
     // Add an event listener to close button inside hamburger
