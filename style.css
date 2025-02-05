@@ -7,6 +7,10 @@
 }
 
 
+.close{
+    display: none;
+}
+
 body{
     background-color: black;
     color : white;
@@ -84,12 +88,16 @@ body{
     /* display: flex; */
     padding: 16px;
 }
+.spotifyPlaylist h1 {
+    /* display: flex; */
+    padding: 16px;
+}
 .cardcontainer{
     margin: 30px;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 70vh;
 }
 
@@ -173,7 +181,7 @@ body{
     width: 90%;
     padding: 12px;
     width: 70vw;
-    height: 40px;
+    min-height: 40px;
 }
 
 .songbuttons {
@@ -186,7 +194,16 @@ body{
     overflow: auto;
     margin-bottom: 44px;
 }
+.hamburger{
+    display: none;
+}
 
+.hamburgerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+}
 .songlist ul{
     padding : 0 12px;
 }
@@ -206,6 +223,10 @@ body{
 .songlist .info{
     font-size: 13px;
     width: 344px;
+}
+
+.info div{
+    word-break: break-all;
 }
 
 .playnow{
@@ -248,9 +269,63 @@ body{
 .songinfo, .songtime{
     color: black;
     padding: 0 12px;
+    width: 250px;
 }
 
 .abovebar{
     display: flex;
     justify-content: space-between;
+    margin: 20px 0;
+}
+
+@media(max-width: 1400px){
+    .left{
+        
+        position: absolute;
+        left : -120%;
+        transition: all .3s;
+        z-index: 1;
+        width: 373px;
+        background-color: black;
+        padding: 0;
+    }
+    .songinfo, .songtime{
+        width: auto;
+    }
+    .left .close{
+        position: absolute;
+        right: 31px;
+        top: 25px;
+        width: 29px;
+    }
+    .right{
+        width: 100vw;
+    }
+    .playbar{
+        width: calc(100vw - 75px);
+    }
+    .seekbar{
+        width: calc(100vw - 120px);
+    }
+    .hamburger{
+        display: block;
+    }
+    .right{
+        margin: 0;
+    }
+    .card{
+        width: 90vw;
+    }
+    .cardcontainer{
+        margin: 0;
+        justify-content: center;
+    }
+    .close{
+        display: block;
+    }
+    .abovebar{
+        flex-direction: column;
+        gap: 23px;
+        align-items: center;
+    }
 }
