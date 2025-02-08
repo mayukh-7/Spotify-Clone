@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+
+:root{
+    --a:0 ;
+}
+
+
 *{
     margin: 0;
     padding: 0;
@@ -107,8 +113,14 @@ body{
     border-radius: 5px;
     background-color: #252525;
     position: relative;
-
+    transition: all 0.9s;
 }
+.card:hover{
+    background-color: rgb(102, 100, 100);
+    cursor: pointer;
+    --a: 1;
+}
+
 
 .circular-box {
     width: 50px;
@@ -121,7 +133,7 @@ body{
     position: absolute;
     top: 168px;
     right: 17px;
-    opacity: 0;
+    opacity: var(--a);
     transition: all 1s ease-out;
   }
   
@@ -283,7 +295,13 @@ body{
 }
 .volume{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+#in{
+    cursor: pointer;
 }
 
 /* .volume:hover::after{
@@ -296,7 +314,7 @@ body{
     margin: 20px 0;
 }
 
-@media(max-width: 1400px){
+@media(max-width: 1200px){
     .left{
         
         position: absolute;
@@ -316,6 +334,13 @@ body{
         top: 25px;
         width: 29px;
     }
+    .timevol{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        gap: 13px;
+    }
     .right{
         width: 100vw;
     }
@@ -332,7 +357,7 @@ body{
         margin: 0;
     }
     .card{
-        width: 90vw;
+        width: 44vw;
     }
     .cardcontainer{
         margin: 0;
@@ -345,5 +370,11 @@ body{
         flex-direction: column;
         gap: 23px;
         align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .card{
+        width: 84vw;
     }
 }

@@ -21,7 +21,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getSongs() {
-    let a = await fetch("http://127.0.0.1:3002/songs/");
+    let a = await fetch("http://127.0.0.1:3000/songs/");
     let response = await a.text();
     console.log(response);
 
@@ -60,8 +60,8 @@ const playMusic = (track, pause = false) => {
         play.src = "pause.svg"
     }
 
-    let audio = new Audio("http://127.0.0.1:3002/songs/" + encodedTrack);
-    currentSong.src = "http://127.0.0.1:3002/songs/" + encodedTrack;
+    let audio = new Audio("http://127.0.0.1:3000/songs/" + encodedTrack);
+    currentSong.src = "http://127.0.0.1:3000/songs/" + encodedTrack;
     currentSong.play();
     // play.src = "pause.svg";
     document.querySelector(".songinfo").innerHTML = track
@@ -168,6 +168,12 @@ async function main() {
             
             playMusic(songs[index+1])
         }
+    })
+
+    // Add an event to volume
+    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
+        console.log("Setting volume to", e.target.value, "/ 100");
+        currentSong.volume = parseInt(e.target.value)/100;
     })
 
 }
