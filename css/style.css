@@ -319,7 +319,7 @@ body{
     .left{
         
         position: absolute;
-        left : -120%;
+        left : -130%;
         transition: all .3s;
         z-index: 1;
         width: 373px;
@@ -387,5 +387,12 @@ body{
 
     .buttons>* {
         margin: 0 6px;
+    }
+    .cardcontainer{
+        max-height: unset;
+        overflow-y: unset;
+    }
+    .spotifyPlaylist h1{
+        padding: 4px;
     }
 }
