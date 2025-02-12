@@ -23,7 +23,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
     currfolder = folder;
-    let a = await fetch(`http://127.0.0.1:3002/${folder}/`);
+    let a = await fetch(`/${folder}/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -59,20 +59,21 @@ async function getSongs(folder) {
         
         let li = document.createElement("li");
         li.innerHTML = `
-            <img class="invert" src="music.svg" alt="">
+            <img class="invert" src="img/music.svg" alt="">
             <div class="info">
                 <div>${decodedSong}</div>
                 <div>Mayukh</div>
             </div>
             <div class="playnow">
-                <span>Play Now</span>
-                <img class="invert" src="play.svg" alt="">
+                <span class="Playing">Play Now</span>
+                <img id = "start"class="invert" src="img/play.svg" alt="">
             </div>
         `;
 
         li.addEventListener("click", () => {
             console.log(`Playing: ${decodedSong}`);
             playMusic(decodedSong);
+
         });
 
         songUL.appendChild(li);
@@ -87,7 +88,7 @@ const playMusic = (track, pause = false) => {
     console.log("Encoded URL:", encodedTrack);
     if (!pause) {
         currentSong.play();
-        play.src = "pause.svg"
+        play.src = "img/pause.svg"
     }
 
     let audio = new Audio(`/${currfolder}/` + encodedTrack);
@@ -100,7 +101,7 @@ const playMusic = (track, pause = false) => {
 
 async function displayAlbums(){
     // console.log(currfolder)
-    let a = await fetch(`http://127.0.0.1:3002/songs/`);
+    let a = await fetch(`/songs/`);
     let response = await a.text();
     // console.log(response)
 
@@ -114,10 +115,10 @@ async function displayAlbums(){
         
     
         // console.log(e)
-        if(e.href.includes("/songs")){
+        if(e.href.includes("/songs") && !e.href.includes(".htaccess")){
             let folder = e.href.split("/").slice(-2)[0]
             // Get the metadata of the folder
-            let a = await fetch(`http://127.0.0.1:3002/songs/${folder}/info.json`)
+            let a = await fetch(`/songs/${folder}/info.json`)
             let response = await a.json();
             cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder="${folder}" class="card">
                         <div class="play">
@@ -131,7 +132,7 @@ async function displayAlbums(){
                             </div>
 
                         </div>
-                        <img src="/songs/${folder}/cover.jpg" alt="">
+                        <img src="/songs/${folder}/cover.jpg" alt="img">
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
                     </div>`
@@ -142,7 +143,7 @@ async function displayAlbums(){
      Array.from(document.getElementsByClassName("card")).forEach(e =>{
         e.addEventListener("click", async item=>{
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-            playMusic(songs[0]);
+            playMusic(songs[0],false);
         })
     })
     
@@ -154,7 +155,7 @@ async function main() {
 
 
       await getSongs("songs/cs");
-    // playMusic(songs[0], true);
+    playMusic(songs[0], true);
     console.log(songs);
 
     //Display all the albums on the page
@@ -165,12 +166,12 @@ async function main() {
     play.addEventListener("click", () =>{
         if(currentSong.paused){
             currentSong.play()
-            play.src = "pause.svg";
+            play.src = "img/pause.svg";
 
         }
         else{
             currentSong.pause()
-            play.src = "play.svg";
+            play.src = "img/play.svg";
         }
     })
 
@@ -235,13 +236,13 @@ async function main() {
    // Add event listener to mute the volume
    document.querySelector(".volume>img").addEventListener("click", e =>{
         console.log(e.target);
-        if(e.target.src.includes("volume.svg")){
-            e.target.src = e.target.src.replace("volume.svg", "mute.svg");
+        if(e.target.src.includes("img/volume.svg")){
+            e.target.src = e.target.src.replace("img/volume.svg", "img/mute.svg");
             currentSong.volume = 0;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
         }
         else{
-            e.target.src = e.target.src.replace("mute.svg","volume.svg");
+            e.target.src = e.target.src.replace("img/mute.svg","img/volume.svg");
             currentSong.volume = 0.1;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 10;
         }
